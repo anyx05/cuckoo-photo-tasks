@@ -6,7 +6,7 @@ import type {
 const ok = <T>(state: DemoState, data: T): Result<T> => ({ ok: true, state, data });
 const fail = (code: ApiError["code"], message: string, fields?: Record<string, string>): Result<never> => ({
   ok: false,
-  error: { code, message, fields },
+  error: fields ? { code, message, fields } : { code, message },
 });
 const now = () => new Date().toISOString();
 
@@ -42,10 +42,10 @@ export function registerUser(
 ): Result<User> {
   const fields: Record<string, string> = {};
   const email = input.email.trim().toLowerCase();
-  if (!email) fields.email = "Enter your email address.";
-  else if (!EMAIL_RE.test(email)) fields.email = "Enter a valid email address, like name@example.com.";
-  if (input.password.length < 8) fields.password = "Use at least 8 characters.";
-  if (input.role !== "EMPLOYER" && input.role !== "TASK_TAKER") fields.role = "Choose Employer or Task Taker.";
+  if (!email) fields["email"] = "Enter your email address.";
+  else if (!EMAIL_RE.test(email)) fields["email"] = "Enter a valid email address, like name@example.com.";
+  if (input.password.length < 8) fields["password"] = "Use at least 8 characters.";
+  if (input.role !== "EMPLOYER" && input.role !== "TASK_TAKER") fields["role"] = "Choose Employer or Task Taker.";
   if (Object.keys(fields).length) return fail("VALIDATION_ERROR", "Please fix the highlighted fields.", fields);
   if (s.users.some((u) => u.email === email))
     return fail("CONFLICT", "An account with this email already exists. Sign in instead.", { email: "This email is already registered." });
@@ -54,7 +54,7 @@ export function registerUser(
     id,
     email,
     role: input.role as Role,
-    displayName: email.split("@")[0],
+    displayName: email.split("@")[0] ?? email,
     operatingCity: input.operatingCity?.trim() || null,
     occupation: null,
     skills: null,
@@ -64,8 +64,8 @@ export function registerUser(
 
 export function createSession(s: DemoState, input: { email: string; password: string }): Result<User> {
   const fields: Record<string, string> = {};
-  if (!input.email.trim()) fields.email = "Enter your email address.";
-  if (!input.password) fields.password = "Enter your password.";
+  if (!input.email.trim()) fields["email"] = "Enter your email address.";
+  if (!input.password) fields["password"] = "Enter your password.";
   if (Object.keys(fields).length) return fail("VALIDATION_ERROR", "Please fix the highlighted fields.", fields);
   const user = s.users.find((u) => u.email === input.email.trim().toLowerCase());
   if (!user) return fail("UNAUTHORIZED", "We couldn't find that account. Check the email or use a demo account.");
@@ -112,16 +112,16 @@ export function createTask(s: DemoState, actorId: string, input: CreateTaskInput
   const u = findUser(s, actorId);
   if (!u || u.role !== "EMPLOYER") return fail("FORBIDDEN", "Only employers can create tasks. Switch to an employer account.");
   const fields: Record<string, string> = {};
-  if (!input.title.trim()) fields.title = "Enter a task title.";
-  if (!input.description.trim()) fields.description = "Describe the vehicle and where it is parked.";
-  if (!input.city.trim()) fields.city = "Choose a city.";
-  if (input.category !== "VEHICLE_PHOTO_CHECK") fields.category = "Choose the Vehicle photo check category.";
+  if (!input.title.trim()) fields["title"] = "Enter a task title.";
+  if (!input.description.trim()) fields["description"] = "Describe the vehicle and where it is parked.";
+  if (!input.city.trim()) fields["city"] = "Choose a city.";
+  if (input.category !== "VEHICLE_PHOTO_CHECK") fields["category"] = "Choose the Vehicle photo check category.";
   const comp = Number(input.proposedCompensation);
   if (!input.proposedCompensation.trim() || !Number.isFinite(comp) || comp <= 0)
-    fields.proposedCompensation = "Enter an illustrative amount greater than 0.";
-  if (!input.requiredEvidence.trim()) fields.requiredEvidence = "Describe which photos and observations you need.";
-  if (!input.permissionConfirmed) fields.permissionConfirmed = "Confirm the permission statement to post this task.";
-  if (input.requestedBy && Number.isNaN(Date.parse(input.requestedBy))) fields.requestedBy = "Enter a valid date and time.";
+    fields["proposedCompensation"] = "Enter an illustrative amount greater than 0.";
+  if (!input.requiredEvidence.trim()) fields["requiredEvidence"] = "Describe which photos and observations you need.";
+  if (!input.permissionConfirmed) fields["permissionConfirmed"] = "Confirm the permission statement to post this task.";
+  if (input.requestedBy && Number.isNaN(Date.parse(input.requestedBy))) fields["requestedBy"] = "Enter a valid date and time.";
   if (Object.keys(fields).length) return fail("VALIDATION_ERROR", "Please fix the highlighted fields.", fields);
   const [s2, id] = nextId(s, "t");
   const task: Task = {
@@ -226,11 +226,11 @@ export function submitTaskEvidence(
   if (t.paymentSimulationStatus !== "HELD_SIMULATED")
     return fail("HOLD_REQUIRED", "The employer hasn't recorded the simulated hold yet. Check back after they do.");
   const fields: Record<string, string> = {};
-  if (input.photoRefs.length < 1) fields.photos = "Choose at least 1 photo.";
-  if (input.photoRefs.length > 5) fields.photos = "Choose no more than 5 photos.";
+  if (input.photoRefs.length < 1) fields["photos"] = "Choose at least 1 photo.";
+  if (input.photoRefs.length > 5) fields["photos"] = "Choose no more than 5 photos.";
   const notes = input.notes.trim();
-  if (notes.length < 10) fields.notes = "Write at least 10 characters about what you observed.";
-  if (notes.length > 2000) fields.notes = "Keep notes to 2,000 characters or fewer.";
+  if (notes.length < 10) fields["notes"] = "Write at least 10 characters about what you observed.";
+  if (notes.length > 2000) fields["notes"] = "Keep notes to 2,000 characters or fewer.";
   if (Object.keys(fields).length) return fail("VALIDATION_ERROR", "Please fix the highlighted fields.", fields);
   const version = s.evidence.filter((e) => e.taskId === taskId).length + 1;
   const [s2, id] = nextId(s, "e");

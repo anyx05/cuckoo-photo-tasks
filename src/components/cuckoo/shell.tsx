@@ -31,7 +31,7 @@ const NAV = {
 /** Maps the current screen to the equivalent screen for the other role so one task can be played from both sides. */
 function taskIdFromPath(path: string): string | null {
   const m = path.match(/^\/(employer|taker)\/tasks\/([^/]+)/);
-  return m && m[2] !== "new" ? m[2] : null;
+  return m && m[2] && m[2] !== "new" ? m[2] : null;
 }
 
 export function DemoBar() {
@@ -107,7 +107,7 @@ export function AppShell({ role, title, children }: { role: Role; title: string;
               <Link
                 key={it.to}
                 to={it.to}
-                activeOptions={{ exact: it.exact }}
+                activeOptions={{ exact: it.exact ?? false }}
                 className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-sidebar-foreground/80 hover:bg-sidebar-accent data-[status=active]:bg-sidebar-accent data-[status=active]:text-sidebar-foreground"
               >
                 <it.icon className="size-4" aria-hidden /> {it.label}
@@ -131,7 +131,7 @@ export function AppShell({ role, title, children }: { role: Role; title: string;
       </div>
       <nav aria-label="Main mobile" className="fixed inset-x-0 bottom-0 z-20 flex border-t bg-card md:hidden">
         {items.map((it) => (
-          <Link key={it.to} to={it.to} activeOptions={{ exact: it.exact }} className="flex flex-1 flex-col items-center gap-0.5 py-2.5 text-xs font-medium text-muted-foreground data-[status=active]:text-primary">
+          <Link key={it.to} to={it.to} activeOptions={{ exact: it.exact ?? false }} className="flex flex-1 flex-col items-center gap-0.5 py-2.5 text-xs font-medium text-muted-foreground data-[status=active]:text-primary">
             <it.icon className="size-5" aria-hidden /> {it.label}
           </Link>
         ))}

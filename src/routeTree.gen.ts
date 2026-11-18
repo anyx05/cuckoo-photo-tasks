@@ -10,33 +10,129 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EmployerIndexRouteImport } from './routes/employer/index'
+import { Route as TakerIndexRouteImport } from './routes/taker/index'
+import { Route as TakerFindRouteImport } from './routes/taker/find'
+import { Route as TakerProfileRouteImport } from './routes/taker/profile'
+import { Route as EmployerTasksNewRouteImport } from './routes/employer/tasks/new'
+import { Route as EmployerTasksTaskIdIndexRouteImport } from './routes/employer/tasks/$taskId/index'
+import { Route as TakerTasksTaskIdIndexRouteImport } from './routes/taker/tasks/$taskId/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmployerIndexRoute = EmployerIndexRouteImport.update({
+  id: '/employer/',
+  path: '/employer/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TakerIndexRoute = TakerIndexRouteImport.update({
+  id: '/taker/',
+  path: '/taker/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TakerFindRoute = TakerFindRouteImport.update({
+  id: '/taker/find',
+  path: '/taker/find',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TakerProfileRoute = TakerProfileRouteImport.update({
+  id: '/taker/profile',
+  path: '/taker/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployerTasksNewRoute = EmployerTasksNewRouteImport.update({
+  id: '/employer/tasks/new',
+  path: '/employer/tasks/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployerTasksTaskIdIndexRoute =
+  EmployerTasksTaskIdIndexRouteImport.update({
+    id: '/employer/tasks/$taskId/',
+    path: '/employer/tasks/$taskId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TakerTasksTaskIdIndexRoute = TakerTasksTaskIdIndexRouteImport.update({
+  id: '/taker/tasks/$taskId/',
+  path: '/taker/tasks/$taskId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/taker/find': typeof TakerFindRoute
+  '/taker/profile': typeof TakerProfileRoute
+  '/employer/': typeof EmployerIndexRoute
+  '/taker/': typeof TakerIndexRoute
+  '/employer/tasks/new': typeof EmployerTasksNewRoute
+  '/employer/tasks/$taskId/': typeof EmployerTasksTaskIdIndexRoute
+  '/taker/tasks/$taskId/': typeof TakerTasksTaskIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/taker/find': typeof TakerFindRoute
+  '/taker/profile': typeof TakerProfileRoute
+  '/employer': typeof EmployerIndexRoute
+  '/taker': typeof TakerIndexRoute
+  '/employer/tasks/new': typeof EmployerTasksNewRoute
+  '/employer/tasks/$taskId': typeof EmployerTasksTaskIdIndexRoute
+  '/taker/tasks/$taskId': typeof TakerTasksTaskIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/taker/find': typeof TakerFindRoute
+  '/taker/profile': typeof TakerProfileRoute
+  '/employer/': typeof EmployerIndexRoute
+  '/taker/': typeof TakerIndexRoute
+  '/employer/tasks/new': typeof EmployerTasksNewRoute
+  '/employer/tasks/$taskId/': typeof EmployerTasksTaskIdIndexRoute
+  '/taker/tasks/$taskId/': typeof TakerTasksTaskIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/taker/find'
+    | '/taker/profile'
+    | '/employer/'
+    | '/taker/'
+    | '/employer/tasks/new'
+    | '/employer/tasks/$taskId/'
+    | '/taker/tasks/$taskId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/taker/find'
+    | '/taker/profile'
+    | '/employer'
+    | '/taker'
+    | '/employer/tasks/new'
+    | '/employer/tasks/$taskId'
+    | '/taker/tasks/$taskId'
+  id:
+    | '__root__'
+    | '/'
+    | '/taker/find'
+    | '/taker/profile'
+    | '/employer/'
+    | '/taker/'
+    | '/employer/tasks/new'
+    | '/employer/tasks/$taskId/'
+    | '/taker/tasks/$taskId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TakerFindRoute: typeof TakerFindRoute
+  TakerProfileRoute: typeof TakerProfileRoute
+  EmployerIndexRoute: typeof EmployerIndexRoute
+  TakerIndexRoute: typeof TakerIndexRoute
+  EmployerTasksNewRoute: typeof EmployerTasksNewRoute
+  EmployerTasksTaskIdIndexRoute: typeof EmployerTasksTaskIdIndexRoute
+  TakerTasksTaskIdIndexRoute: typeof TakerTasksTaskIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +144,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/employer/': {
+      id: '/employer/'
+      path: '/employer'
+      fullPath: '/employer/'
+      preLoaderRoute: typeof EmployerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/taker/': {
+      id: '/taker/'
+      path: '/taker'
+      fullPath: '/taker/'
+      preLoaderRoute: typeof TakerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/taker/find': {
+      id: '/taker/find'
+      path: '/taker/find'
+      fullPath: '/taker/find'
+      preLoaderRoute: typeof TakerFindRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/taker/profile': {
+      id: '/taker/profile'
+      path: '/taker/profile'
+      fullPath: '/taker/profile'
+      preLoaderRoute: typeof TakerProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employer/tasks/new': {
+      id: '/employer/tasks/new'
+      path: '/employer/tasks/new'
+      fullPath: '/employer/tasks/new'
+      preLoaderRoute: typeof EmployerTasksNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employer/tasks/$taskId/': {
+      id: '/employer/tasks/$taskId/'
+      path: '/employer/tasks/$taskId'
+      fullPath: '/employer/tasks/$taskId/'
+      preLoaderRoute: typeof EmployerTasksTaskIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/taker/tasks/$taskId/': {
+      id: '/taker/tasks/$taskId/'
+      path: '/taker/tasks/$taskId'
+      fullPath: '/taker/tasks/$taskId/'
+      preLoaderRoute: typeof TakerTasksTaskIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TakerFindRoute: TakerFindRoute,
+  TakerProfileRoute: TakerProfileRoute,
+  EmployerIndexRoute: EmployerIndexRoute,
+  TakerIndexRoute: TakerIndexRoute,
+  EmployerTasksNewRoute: EmployerTasksNewRoute,
+  EmployerTasksTaskIdIndexRoute: EmployerTasksTaskIdIndexRoute,
+  TakerTasksTaskIdIndexRoute: TakerTasksTaskIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
