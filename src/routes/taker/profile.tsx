@@ -1,17 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AppShell, PageHeader } from "@/components/cuckoo/shell";
-import { Notice } from "@/components/cuckoo/ui";
+import { ProfileScreen } from "@/components/cuckoo/form-screens";
+import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/taker/profile")({
-  head: () => ({ meta: [{ title: "Profile — Cuckoo" }, { name: "description", content: "Cuckoo prototype: Profile" }] }),
+  head: () => pageHead("Task Taker Profile", "Edit self-declared operating city, occupation and skills."),
   component: Page,
 });
 
 function Page() {
-  return (
-    <AppShell role="TASK_TAKER" title="Profile">
-      <PageHeader title="Profile" />
-      <Notice title="Screen not built yet">This screen is still to be built in the prototype.</Notice>
-    </AppShell>
-  );
+  return <ProfileScreen  />;
 }

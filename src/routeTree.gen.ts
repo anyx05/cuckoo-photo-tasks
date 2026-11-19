@@ -10,22 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SigninRouteImport } from './routes/signin'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as EmployerIndexRouteImport } from './routes/employer/index'
+import { Route as EmployerProfileRouteImport } from './routes/employer/profile'
 import { Route as TakerIndexRouteImport } from './routes/taker/index'
 import { Route as TakerFindRouteImport } from './routes/taker/find'
 import { Route as TakerProfileRouteImport } from './routes/taker/profile'
 import { Route as EmployerTasksNewRouteImport } from './routes/employer/tasks/new'
 import { Route as EmployerTasksTaskIdIndexRouteImport } from './routes/employer/tasks/$taskId/index'
+import { Route as EmployerTasksTaskIdCompletedRouteImport } from './routes/employer/tasks/$taskId/completed'
+import { Route as EmployerTasksTaskIdReviewRouteImport } from './routes/employer/tasks/$taskId/review'
 import { Route as TakerTasksTaskIdIndexRouteImport } from './routes/taker/tasks/$taskId/index'
+import { Route as TakerTasksTaskIdEvidenceRouteImport } from './routes/taker/tasks/$taskId/evidence'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SigninRoute = SigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmployerIndexRoute = EmployerIndexRouteImport.update({
   id: '/employer/',
   path: '/employer/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployerProfileRoute = EmployerProfileRouteImport.update({
+  id: '/employer/profile',
+  path: '/employer/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TakerIndexRoute = TakerIndexRouteImport.update({
@@ -54,40 +75,76 @@ const EmployerTasksTaskIdIndexRoute =
     path: '/employer/tasks/$taskId/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const EmployerTasksTaskIdCompletedRoute =
+  EmployerTasksTaskIdCompletedRouteImport.update({
+    id: '/employer/tasks/$taskId/completed',
+    path: '/employer/tasks/$taskId/completed',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EmployerTasksTaskIdReviewRoute =
+  EmployerTasksTaskIdReviewRouteImport.update({
+    id: '/employer/tasks/$taskId/review',
+    path: '/employer/tasks/$taskId/review',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TakerTasksTaskIdIndexRoute = TakerTasksTaskIdIndexRouteImport.update({
   id: '/taker/tasks/$taskId/',
   path: '/taker/tasks/$taskId/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TakerTasksTaskIdEvidenceRoute =
+  TakerTasksTaskIdEvidenceRouteImport.update({
+    id: '/taker/tasks/$taskId/evidence',
+    path: '/taker/tasks/$taskId/evidence',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
+  '/employer/profile': typeof EmployerProfileRoute
   '/taker/find': typeof TakerFindRoute
   '/taker/profile': typeof TakerProfileRoute
   '/employer/': typeof EmployerIndexRoute
   '/taker/': typeof TakerIndexRoute
   '/employer/tasks/new': typeof EmployerTasksNewRoute
+  '/employer/tasks/$taskId/completed': typeof EmployerTasksTaskIdCompletedRoute
+  '/employer/tasks/$taskId/review': typeof EmployerTasksTaskIdReviewRoute
+  '/taker/tasks/$taskId/evidence': typeof TakerTasksTaskIdEvidenceRoute
   '/employer/tasks/$taskId/': typeof EmployerTasksTaskIdIndexRoute
   '/taker/tasks/$taskId/': typeof TakerTasksTaskIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
+  '/employer/profile': typeof EmployerProfileRoute
   '/taker/find': typeof TakerFindRoute
   '/taker/profile': typeof TakerProfileRoute
   '/employer': typeof EmployerIndexRoute
   '/taker': typeof TakerIndexRoute
   '/employer/tasks/new': typeof EmployerTasksNewRoute
+  '/employer/tasks/$taskId/completed': typeof EmployerTasksTaskIdCompletedRoute
+  '/employer/tasks/$taskId/review': typeof EmployerTasksTaskIdReviewRoute
+  '/taker/tasks/$taskId/evidence': typeof TakerTasksTaskIdEvidenceRoute
   '/employer/tasks/$taskId': typeof EmployerTasksTaskIdIndexRoute
   '/taker/tasks/$taskId': typeof TakerTasksTaskIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
+  '/employer/profile': typeof EmployerProfileRoute
   '/taker/find': typeof TakerFindRoute
   '/taker/profile': typeof TakerProfileRoute
   '/employer/': typeof EmployerIndexRoute
   '/taker/': typeof TakerIndexRoute
   '/employer/tasks/new': typeof EmployerTasksNewRoute
+  '/employer/tasks/$taskId/completed': typeof EmployerTasksTaskIdCompletedRoute
+  '/employer/tasks/$taskId/review': typeof EmployerTasksTaskIdReviewRoute
+  '/taker/tasks/$taskId/evidence': typeof TakerTasksTaskIdEvidenceRoute
   '/employer/tasks/$taskId/': typeof EmployerTasksTaskIdIndexRoute
   '/taker/tasks/$taskId/': typeof TakerTasksTaskIdIndexRoute
 }
@@ -95,42 +152,66 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/signin'
+    | '/signup'
+    | '/employer/profile'
     | '/taker/find'
     | '/taker/profile'
     | '/employer/'
     | '/taker/'
     | '/employer/tasks/new'
+    | '/employer/tasks/$taskId/completed'
+    | '/employer/tasks/$taskId/review'
+    | '/taker/tasks/$taskId/evidence'
     | '/employer/tasks/$taskId/'
     | '/taker/tasks/$taskId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/signin'
+    | '/signup'
+    | '/employer/profile'
     | '/taker/find'
     | '/taker/profile'
     | '/employer'
     | '/taker'
     | '/employer/tasks/new'
+    | '/employer/tasks/$taskId/completed'
+    | '/employer/tasks/$taskId/review'
+    | '/taker/tasks/$taskId/evidence'
     | '/employer/tasks/$taskId'
     | '/taker/tasks/$taskId'
   id:
     | '__root__'
     | '/'
+    | '/signin'
+    | '/signup'
+    | '/employer/profile'
     | '/taker/find'
     | '/taker/profile'
     | '/employer/'
     | '/taker/'
     | '/employer/tasks/new'
+    | '/employer/tasks/$taskId/completed'
+    | '/employer/tasks/$taskId/review'
+    | '/taker/tasks/$taskId/evidence'
     | '/employer/tasks/$taskId/'
     | '/taker/tasks/$taskId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SigninRoute: typeof SigninRoute
+  SignupRoute: typeof SignupRoute
+  EmployerProfileRoute: typeof EmployerProfileRoute
   TakerFindRoute: typeof TakerFindRoute
   TakerProfileRoute: typeof TakerProfileRoute
   EmployerIndexRoute: typeof EmployerIndexRoute
   TakerIndexRoute: typeof TakerIndexRoute
   EmployerTasksNewRoute: typeof EmployerTasksNewRoute
+  EmployerTasksTaskIdCompletedRoute: typeof EmployerTasksTaskIdCompletedRoute
+  EmployerTasksTaskIdReviewRoute: typeof EmployerTasksTaskIdReviewRoute
+  TakerTasksTaskIdEvidenceRoute: typeof TakerTasksTaskIdEvidenceRoute
   EmployerTasksTaskIdIndexRoute: typeof EmployerTasksTaskIdIndexRoute
   TakerTasksTaskIdIndexRoute: typeof TakerTasksTaskIdIndexRoute
 }
@@ -144,11 +225,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/employer/': {
       id: '/employer/'
       path: '/employer'
       fullPath: '/employer/'
       preLoaderRoute: typeof EmployerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employer/profile': {
+      id: '/employer/profile'
+      path: '/employer/profile'
+      fullPath: '/employer/profile'
+      preLoaderRoute: typeof EmployerProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/taker/': {
@@ -186,6 +288,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmployerTasksTaskIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/employer/tasks/$taskId/completed': {
+      id: '/employer/tasks/$taskId/completed'
+      path: '/employer/tasks/$taskId/completed'
+      fullPath: '/employer/tasks/$taskId/completed'
+      preLoaderRoute: typeof EmployerTasksTaskIdCompletedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employer/tasks/$taskId/review': {
+      id: '/employer/tasks/$taskId/review'
+      path: '/employer/tasks/$taskId/review'
+      fullPath: '/employer/tasks/$taskId/review'
+      preLoaderRoute: typeof EmployerTasksTaskIdReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/taker/tasks/$taskId/': {
       id: '/taker/tasks/$taskId/'
       path: '/taker/tasks/$taskId'
@@ -193,16 +309,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TakerTasksTaskIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/taker/tasks/$taskId/evidence': {
+      id: '/taker/tasks/$taskId/evidence'
+      path: '/taker/tasks/$taskId/evidence'
+      fullPath: '/taker/tasks/$taskId/evidence'
+      preLoaderRoute: typeof TakerTasksTaskIdEvidenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SigninRoute: SigninRoute,
+  SignupRoute: SignupRoute,
+  EmployerProfileRoute: EmployerProfileRoute,
   TakerFindRoute: TakerFindRoute,
   TakerProfileRoute: TakerProfileRoute,
   EmployerIndexRoute: EmployerIndexRoute,
   TakerIndexRoute: TakerIndexRoute,
   EmployerTasksNewRoute: EmployerTasksNewRoute,
+  EmployerTasksTaskIdCompletedRoute: EmployerTasksTaskIdCompletedRoute,
+  EmployerTasksTaskIdReviewRoute: EmployerTasksTaskIdReviewRoute,
+  TakerTasksTaskIdEvidenceRoute: TakerTasksTaskIdEvidenceRoute,
   EmployerTasksTaskIdIndexRoute: EmployerTasksTaskIdIndexRoute,
   TakerTasksTaskIdIndexRoute: TakerTasksTaskIdIndexRoute,
 }

@@ -1,17 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AppShell, PageHeader } from "@/components/cuckoo/shell";
-import { Notice } from "@/components/cuckoo/ui";
+import { FindTasks } from "@/components/cuckoo/list-screens";
+import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/taker/find")({
-  head: () => ({ meta: [{ title: "Find Tasks — Cuckoo" }, { name: "description", content: "Cuckoo prototype: Find Tasks" }] }),
+  head: () => pageHead("Find Tasks", "Browse open permitted vehicle photo tasks by city."),
   component: Page,
 });
 
 function Page() {
-  return (
-    <AppShell role="TASK_TAKER" title="Find Tasks">
-      <PageHeader title="Find Tasks" />
-      <Notice title="Screen not built yet">This screen is still to be built in the prototype.</Notice>
-    </AppShell>
-  );
+  return <FindTasks  />;
 }

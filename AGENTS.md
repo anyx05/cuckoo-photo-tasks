@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Keep all business operations in the typed, pure in-memory mock adapter and apply successful results through DemoProvider, so role switching shares progress without services or persistence.
+- Use small route wrappers for each named screen and shared screen modules for presentation; this keeps Figma capture names and participant navigation consistent.
+- Define leaf metadata through pageHead and keep demo photo previews separate from draft response types, so route identity and the mock contract remain explicit.

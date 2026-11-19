@@ -9,7 +9,7 @@ import { Button, Card } from "./ui";
 
 export function Logo({ light, size = "md" }: { light?: boolean; size?: "md" | "lg" }) {
   return (
-    <span className={cn("inline-flex items-center gap-2 font-extrabold tracking-tight", light ? "text-sidebar-foreground" : "text-primary", size === "lg" ? "text-3xl" : "text-xl")}>
+    <span className={cn("inline-flex items-center gap-2 font-extrabold", light ? "text-sidebar-foreground" : "text-primary", size === "lg" ? "text-3xl" : "text-xl")}>
       <img src={mascot} alt="" width={1024} height={1024} className={size === "lg" ? "size-12" : "size-8"} />
       Cuckoo
     </span>
@@ -20,6 +20,7 @@ const NAV = {
   EMPLOYER: [
     { to: "/employer", label: "My Tasks", icon: Home, exact: true },
     { to: "/employer/tasks/new", label: "Create a Task", icon: PlusCircle, exact: true },
+    { to: "/employer/profile", label: "Profile", icon: UserRound },
   ],
   TASK_TAKER: [
     { to: "/taker", label: "My Tasks", icon: ClipboardList, exact: true },
@@ -115,14 +116,14 @@ export function AppShell({ role, title, children }: { role: Role; title: string;
             ))}
           </nav>
           {actor && <p className="mb-2 truncate px-3 text-xs text-sidebar-foreground/70">{actor.displayName}</p>}
-          <button onClick={logout} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent">
+          <Button variant="ghost" onClick={logout} className="justify-start text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-foreground">
             <LogOut className="size-4" aria-hidden /> Log out
-          </button>
+          </Button>
         </aside>
         <div className="flex min-w-0 flex-1 flex-col pb-20 md:pb-0">
           <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b bg-card px-4 py-3 md:hidden">
             <Logo />
-            <button onClick={logout} className="rounded-lg p-2 text-muted-foreground" aria-label="Log out"><LogOut className="size-5" /></button>
+            <Button variant="ghost" onClick={logout} className="px-2 text-muted-foreground" aria-label="Log out"><LogOut className="size-5" /></Button>
           </header>
           <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 md:px-8 md:py-8">
             {!actor ? <SignedOutGate /> : actor.role !== role ? <WrongRole role={role} /> : children}
@@ -179,7 +180,7 @@ export function PageHeader({ title, back, children }: { title: string; back?: Re
     <div className="mb-6 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
       <div className="flex min-w-0 items-center gap-2">
         {back}
-        <h1 className="truncate text-xl font-extrabold tracking-tight md:text-2xl">{title}</h1>
+        <h1 className="text-xl font-extrabold md:text-2xl">{title}</h1>
       </div>
       {children}
     </div>

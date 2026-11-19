@@ -85,8 +85,6 @@ export function updateMyProfile(
 ): Result<User> {
   const u = findUser(s, actorId);
   if (!u) return fail("UNAUTHORIZED", "Sign in to edit your profile.");
-  if (u.role === "TASK_TAKER" && !input.operatingCity.trim())
-    return fail("VALIDATION_ERROR", "Please fix the highlighted fields.", { operatingCity: "Choose your operating city. You need it to apply for tasks." });
   const updated: User = {
     ...u,
     operatingCity: input.operatingCity.trim() || null,
@@ -196,7 +194,7 @@ export function assignTask(s: DemoState, actorId: string, taskId: string, input:
   if (!app) return fail("NOT_FOUND", "That application wasn't found.");
   let s2 = patchTask(s, taskId, { status: "ASSIGNED", assignedTaskTakerId: app.applicantId });
   s2 = addHistory(s2, taskId, actorId, "TASK_ASSIGNED", `${userName(s, app.applicantId)} assigned`);
-  return ok(s2, s2.tasks.find((x) => x.id === taskId)!);
+  return ok(s2, s2.tasks.find((x) => x.id === taskId) ?? t);
 }
 
 // ---------- US-07 ----------
@@ -208,7 +206,7 @@ export function simulatePaymentHold(s: DemoState, actorId: string, taskId: strin
   if (t.paymentSimulationStatus !== "NOT_HELD") return fail("CONFLICT", "A simulated hold is already recorded for this task.");
   let s2 = patchTask(s, taskId, { paymentSimulationStatus: "HELD_SIMULATED" });
   s2 = addHistory(s2, taskId, actorId, "PAYMENT_HELD", "Simulated payment hold recorded");
-  return ok(s2, s2.tasks.find((x) => x.id === taskId)!);
+  return ok(s2, s2.tasks.find((x) => x.id === taskId) ?? t);
 }
 
 // ---------- US-08/09/13 ----------
@@ -264,12 +262,12 @@ export function reviewTaskEvidence(
     let s2 = patchTask(s, taskId, { status: "COMPLETED", paymentSimulationStatus: "RELEASED_SIMULATED", lastReviewNote: null });
     s2 = addHistory(s2, taskId, actorId, "EVIDENCE_APPROVED", "Evidence approved — task completed");
     s2 = addHistory(s2, taskId, actorId, "PAYMENT_RELEASED", "Simulated payment released");
-    return ok(s2, s2.tasks.find((x) => x.id === taskId)!);
+    return ok(s2, s2.tasks.find((x) => x.id === taskId) ?? t);
   }
   const note = input.note?.trim() || null;
   let s2 = patchTask(s, taskId, { status: "REVISION_REQUESTED", lastReviewNote: note });
   s2 = addHistory(s2, taskId, actorId, "REVISION_REQUESTED", note ? `Revision requested: “${note}”` : "Revision requested");
-  return ok(s2, s2.tasks.find((x) => x.id === taskId)!);
+  return ok(s2, s2.tasks.find((x) => x.id === taskId) ?? t);
 }
 
 // ---------- US-11 ----------
@@ -283,7 +281,7 @@ export function cancelTask(s: DemoState, actorId: string, taskId: string): Resul
   let s2 = patchTask(s, taskId, { status: "CANCELLED", paymentSimulationStatus: voided ? "VOIDED_SIMULATED" : t.paymentSimulationStatus });
   s2 = addHistory(s2, taskId, actorId, "TASK_CANCELLED", "Task cancelled");
   if (voided) s2 = addHistory(s2, taskId, actorId, "PAYMENT_VOIDED", "Simulated payment hold voided");
-  return ok(s2, s2.tasks.find((x) => x.id === taskId)!);
+  return ok(s2, s2.tasks.find((x) => x.id === taskId) ?? t);
 }
 
 // ---------- US-12 ----------
