@@ -3,7 +3,7 @@ import { EvidenceReview } from "@/components/cuckoo/evidence-screens";
 import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/employer/tasks/$taskId/review")({
-  head: () => pageHead("Evidence Review", "Review private sample photos, request revision or approve evidence."),
+  head: () => pageHead("Kanıtları incele", "Örnek fotoğrafları inceleyin, düzeltme isteyin veya kanıtları onaylayın."),
   component: Page,
 });
 

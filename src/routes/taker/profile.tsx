@@ -3,7 +3,7 @@ import { ProfileScreen } from "@/components/cuckoo/form-screens";
 import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/taker/profile")({
-  head: () => pageHead("Task Taker Profile", "Edit self-declared operating city, occupation and skills."),
+  head: () => pageHead("Görev Alan profili", "Kendi beyanınıza dayanan çalışma şehri, meslek ve becerilerinizi düzenleyin."),
   component: Page,
 });
 

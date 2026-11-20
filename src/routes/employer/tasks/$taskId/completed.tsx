@@ -3,7 +3,7 @@ import { TaskCompleted } from "@/components/cuckoo/evidence-screens";
 import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/employer/tasks/$taskId/completed")({
-  head: () => pageHead("Task Completed", "Confirm evidence approval and simulated payment release."),
+  head: () => pageHead("Görev tamamlandı", "Kanıt onayını ve simüle ödeme durumunu görün."),
   component: Page,
 });
 

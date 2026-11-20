@@ -12,6 +12,16 @@ export function useFeedback() {
   }
   return { error, success, accept };
 }
-export function Feedback({ error, success }: { error: ApiError | null; success: string }) {
-  return error ? <Notice tone="error" title={error.message} /> : success ? <Notice tone="success" title={success} /> : null;
+export function Feedback({
+  error,
+  success,
+}: {
+  error: ApiError | null;
+  success: string;
+}) {
+  return error ? (
+    <Notice tone="error" title={error.message} />
+  ) : success ? (
+    <Notice tone="success" title={success} />
+  ) : null;
 }

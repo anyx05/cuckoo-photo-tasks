@@ -1,4 +1,4 @@
-// Draft contract types (Cuckoo OpenAPI 0.2.1-draft). Demo-only data (photo previews) lives outside.
+// Local prototype view models. Enum values follow the OpenAPI draft; these shapes are not API DTOs.
 export type Role = "EMPLOYER" | "TASK_TAKER";
 export type TaskCategory = "VEHICLE_PHOTO_CHECK";
 export type TaskStatus =
@@ -93,4 +93,6 @@ export interface ApiError {
   fields?: Record<string, string>;
 }
 
-export type Result<T> = { ok: true; state: DemoState; data: T } | { ok: false; error: ApiError };
+export type Result<T> =
+  | { ok: true; state: DemoState; data: T }
+  | { ok: false; error: ApiError };

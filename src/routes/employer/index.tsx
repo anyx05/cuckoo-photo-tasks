@@ -3,7 +3,7 @@ import { EmployerDashboard } from "@/components/cuckoo/list-screens";
 import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/employer/")({
-  head: () => pageHead("Employer Dashboard", "Manage your Cuckoo vehicle photo tasks."),
+  head: () => pageHead("İşveren paneli", "Araç fotoğrafı görevlerinizi yönetin."),
   component: Page,
 });
 

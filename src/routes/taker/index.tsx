@@ -3,7 +3,7 @@ import { TakerDashboard } from "@/components/cuckoo/list-screens";
 import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/taker/")({
-  head: () => pageHead("Task Taker My Tasks", "View your applications and assigned Cuckoo tasks."),
+  head: () => pageHead("Görevlerim", "Başvurularınızı ve size atanan görevleri görün."),
   component: Page,
 });
 
