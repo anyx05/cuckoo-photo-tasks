@@ -1,4 +1,12 @@
-import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { createSeed } from "./seed";
 import type { DemoState, Result, User } from "./types";
 
@@ -32,7 +40,13 @@ export function DemoProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ state, actor: state.users.find((u) => u.id === actorId) ?? null, setActorId, run, reset }),
+    () => ({
+      state,
+      actor: state.users.find((u) => u.id === actorId) ?? null,
+      setActorId,
+      run,
+      reset,
+    }),
     [state, actorId, run, reset],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
@@ -45,9 +59,9 @@ export function useDemo() {
 }
 
 export const DEMO_ACCOUNTS = [
-  { id: "u-deniz", label: "Employer · Deniz Kaya" },
-  { id: "u-kerem", label: "Employer · Kerem Aydın (other owner)" },
-  { id: "u-sarah", label: "Task taker · Sarah Ahmed" },
-  { id: "u-mert", label: "Task taker · Mert Yılmaz" },
-  { id: "u-ece", label: "Task taker · Ece Demir (no city)" },
+  { id: "u-deniz", label: "İşveren · Deniz Kaya" },
+  { id: "u-kerem", label: "İşveren · Kerem Aydın (diğer görev sahibi)" },
+  { id: "u-sarah", label: "Görev Alan · Sarah Ahmed" },
+  { id: "u-mert", label: "Görev Alan · Mert Yılmaz" },
+  { id: "u-ece", label: "Görev Alan · Ece Demir (şehir belirtilmedi)" },
 ];

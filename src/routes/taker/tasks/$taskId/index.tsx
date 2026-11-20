@@ -3,7 +3,7 @@ import { TaskDetails } from "@/components/cuckoo/task-screens";
 import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/taker/tasks/$taskId/")({
-  head: () => pageHead("Task Taker Task Details", "Apply and view your assigned vehicle photo task."),
+  head: () => pageHead("Görev Alan · Görev ayrıntıları", "Göreve başvurun veya size atanan görevin ayrıntılarını görün."),
   component: Page,
 });
 

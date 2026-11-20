@@ -3,7 +3,7 @@ import { SubmitEvidence } from "@/components/cuckoo/evidence-screens";
 import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/taker/tasks/$taskId/evidence")({
-  head: () => pageHead("Submit Evidence", "Select synthetic vehicle photos and record visible observations."),
+  head: () => pageHead("Kanıt gönder", "Kurgusal araç fotoğraflarını seçin ve görünür ayrıntıları yazın."),
   component: Page,
 });
 

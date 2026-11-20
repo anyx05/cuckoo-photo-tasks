@@ -3,7 +3,7 @@ import { ProfileScreen } from "@/components/cuckoo/form-screens";
 import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/employer/profile")({
-  head: () => pageHead("Employer Profile", "Edit your Cuckoo employer demo profile."),
+  head: () => pageHead("İşveren profili", "Cuckoo işveren demo profilinizi düzenleyin."),
   component: Page,
 });
 

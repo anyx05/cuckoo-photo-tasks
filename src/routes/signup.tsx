@@ -3,7 +3,7 @@ import { AuthScreen } from "@/components/cuckoo/auth-screen";
 import { pageHead } from "@/components/cuckoo/page-meta";
 
 export const Route = createFileRoute("/signup")({
-  head: () => pageHead("Sign Up", "Create a fictional Cuckoo demo account."),
+  head: () => pageHead("Kayıt ol", "Kurgusal bir Cuckoo demo hesabı oluşturun."),
   component: Page,
 });
 
