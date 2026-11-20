@@ -36,7 +36,7 @@ export function TakerDashboard() {
 export function FindTasks() {
   const { state } = useDemo();
   const [city, setCity] = useState("");
-  const tasks = listTasks(state, { status: "OPEN", city: city || undefined, category: "VEHICLE_PHOTO_CHECK" });
+  const tasks = listTasks(state, { status: "OPEN", ...(city ? { city } : {}), category: "VEHICLE_PHOTO_CHECK" });
   return <AppShell role="TASK_TAKER" title="Find Tasks"><PageHeader title="Find Tasks" />
     <div className="mb-6 grid gap-4 sm:grid-cols-2"><Field id="filter-city" label="City"><select id="filter-city" className={inputClass} value={city} onChange={e => setCity(e.target.value)}><option value="">All cities</option>{CITIES.map(c => <option key={c}>{c}</option>)}</select></Field><Field id="filter-category" label="Category"><select id="filter-category" className={inputClass}><option value="VEHICLE_PHOTO_CHECK">Vehicle photo check</option></select></Field></div>
     <p className="mb-3 text-sm text-muted-foreground">{tasks.length} open {tasks.length === 1 ? "task" : "tasks"}</p><div className="space-y-3">{tasks.map(task => <TaskCard key={task.id} task={task} role="TASK_TAKER" extra={<span className="text-sm font-bold">{formatMoney(task.proposedCompensation)} <span className="text-xs font-normal">illustrative</span></span>} />)}{!tasks.length && <EmptyState title="No open tasks in this city" action={<Button variant="outline" onClick={() => setCity("")}>Clear city filter</Button>} />}</div>

@@ -41,7 +41,7 @@ export const inputClass =
 
 export function Field({
   id, label, hint, error, tag, optional, children,
-}: { id: string; label: string; hint?: string; error?: string; tag?: string; optional?: boolean; children: ReactNode }) {
+}: { id: string; label: string; hint?: string; error?: string | undefined; tag?: string; optional?: boolean; children: ReactNode }) {
   return (
     <div className="space-y-1.5">
       <label htmlFor={id} className="flex flex-wrap items-center gap-2 text-sm font-semibold">
